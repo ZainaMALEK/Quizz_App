@@ -1,0 +1,37 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<h1>{{title}}</h1>
+
+
+<select [(ngModel)]="category">
+  <option value="0">Choisir une catégorie</option>
+  <option [value]=cat.id *ngFor="let cat of categories">{{cat.name}}</option>
+</select>
+
+
+<select [(ngModel)]="difficulty">
+  <option value="0">Choisir une difficulté</option>
+  <option value="1">Facile</option>
+  <option value="2">Intérmediaire</option>
+  <option value="3">Difficile</option>
+</select>
+
+
+
+<button (click)="runQuizz()">Démarer Quizz</button>
+
+<!--template de la question-->
+<div *ngIf="isQuizzRunning">
+  <h2>{{questions[questionIndex].label}}</h2>
+  <div >
+    <p *ngFor="let answer of questions[questionIndex].answers">
+      <input (click)="checkAnswer(questions[questionIndex])" type="checkbox">{{answer.label}}
+    </p>
+    <p>
+    
+    </p>
+  </div>
+  <footer>
+    <button (click)="validQuestion()">Valider</button>
+  </footer>
+
+</div>
