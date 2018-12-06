@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+
+
+{% block body %}
+<h1>Les réponses</h1>
+<table class="table table-bordered table-striped">
+  <thead>
+    <td>
+      Réponse
+    </td>
+    <td>
+      Question
+    </td>
+    <td>
+      Vrai/Faux
+    </td>
+
+    <td>
+      Actions
+    </td>
+  </thead>
+  <tbody>
+
+    {% for answer in answers %}
+
+      <tr>
+        <td>{{ answer.label }}</td>
+        <td>{{ answer.question.label }}</td>
+        <td>{{ answer.correct }}</td>
+        <td>
+
+          <a class="btn" href="{{path('answer_edit',{'id':answer.id})}}">Modifier</a>
+          <a class="btn" href="{{path('answer_delete',{'id':answer.id})}}">Supprimer</a>
+
+        </td>
+
+      </tr>
+
+    {% endfor %}
+
+  </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,36 @@
+
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+  {# filtres #}
+  <form>
+    <select name="category">
+      <option value="0">Choisir une catégorie</option>
+      {% for cat in categories %}
+        <option value="{{cat.id}}">{{cat.name}}</option>
+      {% endfor %}
+    </select>
+    <select name="difficulty">
+      <option value="0">Choisir un niveau</option>
+      {% for key in difficulty|keys %}
+        <option value="{{difficulty[key]}}">{{key}}</option>
+      {% endfor %}
+    </select>
+    <button>Filtrer</button>
+  </form>
+
+  <table>
+    {% for question in questions %}
+    <tr>
+      <td>{{question.label}}</td>
+      <td>{{question.category.name}}</td>
+      <td>Niveau {{question.difficulty}}</td>
+      <td>{{question.answers | length }} réponses enregistrées</td>
+      <td>
+        <a href="{{path('question_detail', {'id': question.id})}}">Détails</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+{% endblock %}

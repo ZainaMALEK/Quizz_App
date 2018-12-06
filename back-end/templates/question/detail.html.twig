@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<h1>Detail question</h1>
+<table class="table table-bordered table-striped">
+  <thead>
+    <td>
+      Question
+    </td>
+    <td>
+      Catégorie
+    </td>
+    <td>
+      Difficulté
+    </td>
+    <td>
+      Réponse
+    </td>
+    <td>
+      Actions
+    </td>
+  </thead>
+  <tbody>
+
+
+
+      <tr>
+        <td>{{ question.label }}</td>
+        <td>{{ question.category.name }}</td>
+        <td>{{ question.difficulty }}</td>
+        <td>Réponses</td>
+        <td>
+
+          <a class="btn" href="{{path('question_edit',{'id':question.id})}}">Modifier</a>
+          <a class="btn" href="{{path('question_delete',{'id':question.id})}}">Supprimer</a>
+
+        </td>
+
+      </tr>
+
+
+
+  </tbody>
+</table>
+<h5>Les réponses associés a cette question</h5>
+<ul>
+{% for answer in question.answers %}
+
+{% if answer.correct == 1 %}
+  <li>  {{answer.label}}(correcte) </li>
+  {% else %}
+  <li>  {{answer.label}} </li>    
+{% endif %}
+
+{% endfor %}
+</ul>
+<!-- Formulaire réponses -->
+<h5>Entrez une réponse à cette question</h5>
+{{form_start(form)}}
+{{form_end(form)}}
+
+{% endblock %}
