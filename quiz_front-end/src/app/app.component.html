@@ -11,7 +11,7 @@
 <select [(ngModel)]="difficulty">
   <option value="0">Choisir une difficulté</option>
   <option value="1">Facile</option>
-  <option value="2">Intérmediaire</option>
+  <option value="2">Intermediaire</option>
   <option value="3">Difficile</option>
 </select>
 
@@ -24,10 +24,10 @@
   <h2>{{questions[questionIndex].label}}</h2>
   <div >
     <p *ngFor="let answer of questions[questionIndex].answers">
-      <input (click)="checkAnswer(questions[questionIndex])" type="checkbox">{{answer.label}}
+      <input (click)="checkAnswer(answer.id)" type="checkbox">{{answer.label}}
     </p>
     <p>
-    
+
     </p>
   </div>
   <footer>

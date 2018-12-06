@@ -169,4 +169,48 @@ class QuestionController extends AbstractController
         }
 
 
+        /**
+     * @Route(
+     * "/question/client/check",
+     * name="question_client_check",
+     * methods={"POST"}
+     * )
+     */
+    public function client_check(Request $request)
+    {
+      // accès au body de la requête Ajax en POST
+      // grâce à la méthode getContent()
+      $request_body = json_decode($request->getContent());
+      $question_id = $request_body->question_id;
+      $question_answers = $request_body->answers;
+      // vérifier les réponses données par le client
+      // en rapport avec la question identifiée
+      $success = true;
+      // tableau des bonnes réponses
+      $answers = $this->getDoctrine()
+        ->getRepository(Answer::class)
+        ->findCorrectByQuestionId($question_id);
+      // vérification des réponses client
+      if (sizeof($question_answers) !== sizeof($answers)) {
+        $success = false;
+      } else {
+        // tableaux de même longueur
+        foreach($question_answers as $question_answer) {
+          // à chaque itération, vérifier que l'id
+          // de la réponse existe dans le tableau
+          // des bonnes réponses
+          if (!$this->exists($question_answer, $answers, 'id')) {
+            $success = false;
+          }
+        } // fin foreach
+      } // fin if
+      return new JsonResponse(
+        array(
+          'success' => $success,
+          'answers' => $answers)
+        );
+    }
+
+
+
 }
